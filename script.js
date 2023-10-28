@@ -10,13 +10,25 @@ buttons.forEach(function(button) {
     
     if (value === '=') {
       calculate();
+
     } else if (value === 'C') {
       clearDisplay();
-    } else {
+    }
+    else if (value === '√') {
+      calculateSquareRoot();
+    }
+    else if(value=== 'Sin'){
+      Signvalue();
+    }
+    else if(value === 'Cos'){
+      calculateCos();
+    }
+    else {
       appendValue(value);
     }
   });
 });
+
 document.addEventListener('keydown', function(e){
   let key = e.key;
 if(/[0-9.+\-*/]|Enter/.test(key)){
@@ -26,7 +38,6 @@ if(key === 'Enter'){
 else{
    appendValue(key);
 }
-
 }
 if(key === 'Backspace'){
   deleteValue();
@@ -54,4 +65,31 @@ function calculate() {
     display.value = result;
     expression = result;
   
+}
+
+function calculateSquareRoot() {
+  const inputValue = parseFloat(expression);
+  if (!isNaN(inputValue) && inputValue >= 0) {
+    const squareRoot = Math.sqrt(inputValue);
+    display.value = `${squareRoot.toFixed(2)}`;
+  } else {
+    result.innerHTML = 'Invalid input';
+  }
+}
+
+function Signvalue(){
+  const inputvalue = parseFloat(expression);
+  
+    const sin = Math.sin(inputvalue);
+    display.value = `${sin}`;
+}
+
+function calculateCos() {
+  const inputValue = parseFloat(expression);
+  if (!isNaN(inputValue) && inputValue >= 0) {
+    const cos = Math.cos(inputValue);
+    display.value = `${cos.toFixed(2)}`;
+  } else {
+    display.value = 'Invalid input';
+  }
 }
